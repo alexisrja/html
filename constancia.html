@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generar Constancia de Estudios</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/docx/7.3.0/docx.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        input, button {
+            margin-bottom: 10px;
+            padding: 8px;
+            width: 300px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        h1 {
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Generar Constancia de Estudios</h1>
+<form id="constanciaForm">
+    <label for="nombre">Nombre del Estudiante:</label><br>
+    <input type="text" id="nombre" required><br>
+    
+    <label for="institucion">Institución Educativa:</label><br>
+    <input type="text" id="institucion" required><br>
+    
+    <label for="grado">Grado o Curso:</label><br>
+    <input type="text" id="grado" required><br>
+    
+    <label for="fecha">Fecha de Emisión:</label><br>
+    <input type="text" id="fecha" required><br><br>
+    
+    <button type="button" onclick="generarDOCX()">Generar DOCX</button>
+</form>
+
+<script>
+    function generarDOCX() {
+        const { Document, Packer, Paragraph, TextRun } = window.docx;
+
+        const nombre = document.getElementById('nombre').value;
+        const institucion = document.getElementById('institucion').value;
+        const grado = document.getElementById('grado').value;
+        const fecha = document.getElementById('fecha').value;
+
+        if (!nombre || !institucion || !grado || !fecha) {
+            alert("Por favor, complete todos los campos.");
+            return;
+        }
+
+        const doc = new Document({
+            sections: [{
+                properties: {},
+                children: [
+                    new Paragraph({
+                        text: "Constancia de Estudios",
+                        heading: "Heading1",
+                    }),
+                    new Paragraph({
+                        text: `Nombre del Estudiante: ${nombre}`,
+                    }),
+                    new Paragraph({
+                        text: `Institución Educativa: ${institucion}`,
+                    }),
+                    new Paragraph({
+                        text: `Grado o Curso: ${grado}`,
+                    }),
+                    new Paragraph({
+                        text: `Fecha de Emisión: ${fecha}`,
+                    }),
+                    new Paragraph({
+                        text: 'Esta constancia se expide a solicitud del interesado para los fines que estime convenientes.',
+                    }),
+                    new Paragraph({
+                        text: 'Firma:',
+                    }),
+                    new Paragraph({
+                        text: '____________________',
+                    }),
+                ],
+            }],
+        });
+
+        Packer.toBlob(doc).then(blob => {
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'constancia_de_estudios.docx';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        }).catch(err => {
+            alert("Hubo un error al generar el documento.");
+            console.error(err);
+        });
+    }
+</script>
+
+</body>
+</html>

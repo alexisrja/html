@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="stilos.css">
+    <title>UMB Almoloya de Alquisiras</title>
+</head>
+<body>
+  <video autoplay="autoplay" loop="loop" id="video_background" preload="auto" volume="50"/>
+  <source src="recursos/Fondo2.mp4" type="video/mp4"/>
+</video> 
+  <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+             <!-- Cambia a la ruta de tu ícono -->
+            <h1>Bienvenido/a.</h1>
+            
+            <button class="close-btn" onclick="toggleSidebar()"><!-- Botón para cerrar -->
+        <img src="iconos/x-circle-regular-24.png" alt="cerar" class="close-icon">
+        </button> 
+    </div>
+        <ul class="nav-list">
+          <li><a href="permisos.html">Permisos</a></li>
+            <li><a href="constancia.html">Constancias</a></li>
+            <li><a href="titulacion.html">Titulacion</a></li>
+            <li><a href="proyecto.html">Servicio social</a></li>
+            <li><a href="justificantes.html">Justificantes </a></li>
+            <li><a href="#"></a></li>
+        </ul>
+    </div>
+    <div class="main-content">
+        <header>
+        <button class="toggle-sidebar" onclick="toggleSidebar()"> <!-- Botón para mostrar -->
+        <img src="iconos/menu-alt-left-regular-24.png" alt="menu" class="toggle-sidebar">
+        </button>
+        <h1>Unidad De Estudios Superiores "Almoloya De Alquisiras" </h1>
+            <div class="user-info">
+                <span><a href="#">Usuario</a></span>
+            </div>
+        </header>
+        <div class="content">
+            <h2>¡BIENVENIDO! NUESTRA CASA DE ESTUDIOS ES TU CASA!</h2>
+        </div>
+    </div>
+
+    <script src="scrip.js"></script> <!-- Asegúrate de vincular tu archivo JS -->
+    <main>
+</body>
+
+<body>
+<div class="slider" x-data="{start: true, end: false}" style="padding-top: 150px;">
+    <div class="slider__content" x-ref="slider" x-on:scroll.debounce="$refs.slider.scrollLeft == 0 ? start = true : start = false; Math.abs(($refs.slider.scrollWidth - $refs.slider.offsetWidth) - $refs.slider.scrollLeft) < 5 ? end = true : end = false;">
+      <div class="slider__item">
+        <img class="slider__image" src="recursos/Fondo.jpg" alt="Image">
+        <div class="slider__info">
+          <h2>Card 1</h2>
+        </div>
+      </div>
+      <div class="slider__item">
+        <img class="slider__image" src="/img/flat-mountains.png" alt="Image">
+        <div class="slider__info">
+          <h2>Card 2</h2>
+        </div>
+      </div>
+      <div class="slider__item">
+        <img class="slider__image" src="/img/pattern_japanese-pattern-2_1_2_0-0_0_1__ffffff00_000000.png" alt="Image">
+        <div class="slider__info">
+          <h2>Card 3</h2>
+        </div>
+      </div>
+      <div class="slider__item">
+        <img class="slider__image" src="/img/pattern_japanese-pattern-3_1_5_0-0_0_1__2a2b37_c5c4ca.png" alt="Image">
+        <div class="slider__info">
+          <h2>Card 4</h2>
+        </div>
+      </div>
+      <div class="slider__item">
+        <img class="slider__image" src="/img/dragon-scales (3).svg" alt="Image">
+        <div class="slider__info">
+          <h2>Card 5</h2>
+        </div>
+      </div>
+      <div class="slider__item">
+        <img class="slider__image" src="/img/liquid-cheese.png" alt="Image">
+        <div class="slider__info">
+          <h2>Card 6</h2>
+        </div>
+      </div>
+      <div class="slider__item">
+        <img class="slider__image" src="/img/pattern_circles-1_1_16_0-0_0_1__2a2b37_ffeba8_ffeba8.png" alt="Image">
+        <div class="slider__info">
+          <h2>Card 7</h2>
+        </div>
+      </div>
+      <div class="slider__item">
+        <img class="slider__image" src="/img/dragon-scales (2).svg" alt="Image">
+        <div class="slider__info">
+          <h2>Card 8</h2>
+        </div>
+      </div>
+      <div class="slider__item">
+        <img class="slider__image" src="/img/protruding-squares.png" alt="Image">
+        <div class="slider__info">
+          <h2>Card 9</h2>
+        </div>
+      </div>
+      <div class="slider__item">
+        <img class="slider__image" src="/img/radiant-gradient.png" alt="Image">
+        <div class="slider__info">
+          <h2>Card 10</h2>
+        </div>
+      </div>
+    </div>
+    <div class="slider__nav" style="display: flex;justify-content: center;">
+      <button class="slider__nav__button" x-on:click="$refs.slider.scrollBy({left: $refs.slider.offsetWidth * -1, behavior: 'smooth'});" x-bind:class="start ? '' : 'slider__nav__button--active'">Previous</button>
+      <button class="slider__nav__button" x-on:click="$refs.slider.scrollBy({left: $refs.slider.offsetWidth, behavior: 'smooth'});" x-bind:class="end ? '' : 'slider__nav__button--active'">Next</button>
+    </div>
+  </div>
+  <script src="main.js"></script> 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/3.10.2/cdn.js"></script>
+</body>
+</html>
+

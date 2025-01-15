@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generar Constancia de Permiso</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        form {
+            margin-bottom: 30px;
+        }
+        form label {
+            font-weight: bold;
+            display: block;
+            margin-top: 10px;
+        }
+        form input, form textarea {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        form button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        form button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Generar Constancia de Permiso</h1>
+        <form id="formularioPermiso">
+            <label for="nombre">Nombre del Solicitante:</label>
+            <input type="text" id="nombre" placeholder="Ingresa tu nombre" required>
+
+            <label for="identificacion">Número de Identificación:</label>
+            <input type="text" id="identificacion" placeholder="Ingresa tu número de identificación" required>
+
+            <label for="fechaInicio">Fecha de Inicio:</label>
+            <input type="date" id="fechaInicio" required>
+
+            <label for="fechaFin">Fecha de Fin:</label>
+            <input type="date" id="fechaFin" required>
+
+            <label for="motivo">Motivo del Permiso:</label>
+            <textarea id="motivo" placeholder="Describe el motivo del permiso" rows="4" required></textarea>
+
+            <label for="responsable">Nombre del Responsable:</label>
+            <input type="text" id="responsable" placeholder="Ingresa el nombre del responsable" required>
+
+            <label for="cargo">Cargo del Responsable:</label>
+            <input type="text" id="cargo" placeholder="Ingresa el cargo del responsable" required>
+
+            <button type="button" onclick="generarPDF()">Generar PDF</button>
+        </form>
+    </div>
+
+    <script>
+        async function generarPDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            // Obtener los datos del formulario
+            const nombre = document.getElementById("nombre").value;
+            const identificacion = document.getElementById("identificacion").value;
+            const fechaInicio = document.getElementById("fechaInicio").value;
+            const fechaFin = document.getElementById("fechaFin").value;
+            const motivo = document.getElementById("motivo").value;
+            const responsable = document.getElementById("responsable").value;
+            const cargo = document.getElementById("cargo").value;
+
+            // Verificar que todos los campos estén completos
+            if (!nombre || !identificacion || !fechaInicio || !fechaFin || !motivo || !responsable || !cargo) {
+                alert("Por favor, completa todos los campos del formulario.");
+                return;
+            }
+
+            // Contenido del PDF
+            doc.setFont("Helvetica", "normal");
+            doc.setFontSize(14);
+            doc.text("CONSTANCIA DE PERMISO", 105, 20, { align: "center" });
+
+            doc.setFontSize(12);
+            doc.text("Por medio de la presente se otorga el permiso a:", 20, 40);
+            doc.setFont("Helvetica", "bold");
+            doc.text(nombre, 20, 50);
+            doc.setFont("Helvetica", "normal");
+            doc.text(`Con el número de identificación: ${identificacion}.`, 20, 60);
+            doc.text(`Para ausentarse del ${fechaInicio} al ${fechaFin},`, 20, 70);
+            doc.text(`con motivo de: ${motivo}.`, 20, 80);
+
+            doc.text("El presente permiso ha sido autorizado por:", 20, 100);
+            doc.setFont("Helvetica", "bold");
+            doc.text(responsable, 20, 110);
+            doc.setFont("Helvetica", "normal");
+            doc.text(`Cargo: ${cargo}`, 20, 120);
+
+            doc.setFont("Helvetica", "italic");
+            doc.text("Se extiende para los fines correspondientes.", 20, 140);
+
+            doc.setFontSize(10);
+            doc.text("Atentamente,", 105, 170, { align: "center" });
+            doc.text("_________________________", 105, 180, { align: "center" });
+            doc.text(responsable, 105, 190, { align: "center" });
+            doc.text(cargo, 105, 200, { align: "center" });
+
+            // Descargar el PDF
+            doc.save("Constancia_de_Permiso.pdf");
+        }
+    </script>
+</body>
+</html>
